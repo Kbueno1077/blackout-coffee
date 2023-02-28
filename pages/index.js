@@ -2,9 +2,13 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 
-const inter = Inter({ subsets: ["latin"] });
+import { Worker } from "@react-pdf-viewer/core";
+import { Viewer } from "@react-pdf-viewer/core";
+import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 
 export default function Home() {
+  const defaultLayoutPluginInstance = defaultLayoutPlugin();
+
   return (
     <>
       <Head>
@@ -15,12 +19,13 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <div style={{ height: "100vh" }}>
-          <iframe
-            src="BLACKOUT_MENU.pdf#toolbar=0&view=fitW&zoom=80"
-            type="application/pdf"
-            width="100%"
-            height="100%"
-          />
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.3.122/build/pdf.worker.min.js">
+            <Viewer
+              fileUrl="BLACKOUT_MENU.pdf"
+              plugins={[defaultLayoutPluginInstance]}
+            />
+            ;
+          </Worker>
         </div>
       </main>
     </>
