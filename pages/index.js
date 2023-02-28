@@ -15,7 +15,7 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <div style={{ height: "100vh" }}>
-          <embed
+          <iframe
             src="BLACKOUT_MENU.pdf#toolbar=0&view=fitW&zoom=80"
             type="application/pdf"
             width="100%"
