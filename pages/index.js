@@ -14,22 +14,25 @@ export default function Home() {
         <link rel="icon" href="/bcicon.ico" />
       </Head>
 
-      {menu_photos_cant.map(photoNumber => {
-        return (
-          <Image
-            key={`${photoNumber}`}
-            src={`/menu_photos/${menu_photos_prefix}${photoNumber}.jpg`}
-            width={200}
-            height={160}
-            alt={"alt"}
-            sizes="(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              33vw"
-            style={{ height: "100%", width: "100%" }} //The point is right there!
-            //OR className='w-100 h-100'
-          />
-        );
-      })}
+      <div style={{ maxWidth: "1200px" }}>
+        {menu_photos_cant.map(photoNumber => {
+          return (
+            <Image
+              key={`${photoNumber}`}
+              src={`/menu_photos/${menu_photos_prefix}${photoNumber}.jpg`}
+              width={200}
+              loading="eager"
+              height={160}
+              priority
+              alt={"Menu Image"}
+              sizes="(max-width: 768px) 100vw,
+                (max-width: 1200px) 50vw, 33vw"
+              style={{ height: "100%", width: "100%" }} //The point is right there!
+              //OR className='w-100 h-100'
+            />
+          );
+        })}
+      </div>
     </>
   );
 }
