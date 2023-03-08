@@ -1,5 +1,4 @@
 import Head from "next/head";
-import styles from "@/styles/Home.module.css";
 import Image from "next/image";
 
 const menu_photos_prefix = "BLACKOUT_MENU_";
@@ -14,26 +13,23 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/bcicon.ico" />
       </Head>
-      <main className={styles.main}>
-        {menu_photos_cant.map(photoNumber => {
-          return (
-            <div
-              key={`${photoNumber}`}
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                flexDirection: "column"
-              }}
-            >
-              <img
-                style={{ objectFit: "contain" }}
-                src={`/menu_photos/${menu_photos_prefix}${photoNumber}.jpg`}
-              />
-            </div>
-          );
-        })}
-      </main>
+
+      {menu_photos_cant.map(photoNumber => {
+        return (
+          <Image
+            key={`${photoNumber}`}
+            src={`/menu_photos/${menu_photos_prefix}${photoNumber}.jpg`}
+            width={200}
+            height={160}
+            alt={"alt"}
+            sizes="(max-width: 768px) 100vw,
+              (max-width: 1200px) 50vw,
+              33vw"
+            style={{ height: "100%", width: "100%" }} //The point is right there!
+            //OR className='w-100 h-100'
+          />
+        );
+      })}
     </>
   );
 }
