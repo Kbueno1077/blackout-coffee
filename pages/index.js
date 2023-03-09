@@ -14,7 +14,7 @@ export default function Home() {
         <link rel="icon" href="/bcicon.ico" />
       </Head>
 
-      <div style={{ maxWidth: "1200px" }}>
+      <div style={{ maxWidth: "1200px", margin: "0 auto 0" }}>
         {menu_photos_cant.map(photoNumber => {
           return (
             <Image
@@ -27,7 +27,12 @@ export default function Home() {
               alt={"Menu Image"}
               sizes="(max-width: 768px) 100vw,
                 (max-width: 1200px) 50vw, 33vw"
-              style={{ height: "100%", width: "100%" }} //The point is right there!
+              style={{
+                height: "100%",
+                width: "100%",
+                borderRadius: "20px",
+                padding: "5px"
+              }} //The point is right there!
               //OR className='w-100 h-100'
             />
           );
