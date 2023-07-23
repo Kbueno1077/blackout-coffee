@@ -1,10 +1,9 @@
 import Head from "next/head";
 import Image from "next/image";
+import React from "react";
+import { GetImagesService } from "@/helpers/services";
 
-const menu_photos_prefix = "BLACKOUT_MENU_";
-const menu_photos_cant = [1, 2, 3, 4, 5, 6, 7];
-
-export default function Home() {
+export default function Home({ assets }) {
   return (
     <>
       <Head>
@@ -13,13 +12,12 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/bcicon.ico" />
       </Head>
-
       <div style={{ maxWidth: "1200px", margin: "0 auto 0" }}>
-        {menu_photos_cant.map(photoNumber => {
+        {assets.resources.map((asset, number) => {
           return (
             <Image
-              key={`${photoNumber}`}
-              src={`/menu_photos/${menu_photos_prefix}${photoNumber}.jpg`}
+              key={`${number}`}
+              src={asset.secure_url}
               width={200}
               loading="eager"
               height={160}
@@ -31,8 +29,9 @@ export default function Home() {
                 height: "100%",
                 width: "100%",
                 borderRadius: "20px",
-                padding: "5px"
-              }} //The point is right there!
+                padding: "5px",
+              }}
+              //The point is right there!
               //OR className='w-100 h-100'
             />
           );
@@ -40,4 +39,21 @@ export default function Home() {
       </div>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  const jsonResponse = await GetImagesService();
+  const parseResponse = JSON.parse(jsonResponse);
+
+  parseResponse.resources.sort((a, b) => {
+    if (a.filename < b.filename) {
+      return -1;
+    }
+    if (a.filename > b.filename) {
+      return 1;
+    }
+    return 0;
+  });
+
+  return { props: { assets: parseResponse } };
 }
